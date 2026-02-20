@@ -107,8 +107,8 @@ export const useTelemetryStore = create<TelemetryStore>((set, get) => ({
     });
   },
 
-  setConnected: (connected, source = "none") => {
-    set({ isConnected: connected, connectionSource: connected ? source : "none" });
+  setConnected: (connected, source) => {
+    set({ isConnected: connected, connectionSource: connected && source ? source : "none" });
   },
 
   reset: () => {
