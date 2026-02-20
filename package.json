@@ -1,0 +1,51 @@
+{
+  "name": "iot-playground",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "build:ci": "CI=true NEXT_PUBLIC_CI=true next build",
+    "start": "next start",
+    "lint": "biome lint --write",
+    "lint:check": "biome lint",
+    "format": "biome format --write .",
+    "check:biome": "biome check --write",
+    "check:biome:ci": "biome check",
+    "e2e": "playwright test",
+    "e2e:debug": "playwright test --debug",
+    "postinstall": "prisma generate",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": "biome check --write"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^6.38.0",
+    "@libsql/client": "^0.17.0",
+    "@prisma/adapter-libsql": "^7.4.1",
+    "@prisma/client": "^7.4.1",
+    "mqtt": "^5.15.0",
+    "next": "15.5.12",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "recharts": "^3.7.0",
+    "socket.io-client": "^4.8.3",
+    "zod": "^4.3.6",
+    "zustand": "^5.0.11"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.3",
+    "@playwright/test": "^1.58.2",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prisma": "^7.4.1",
+    "tailwindcss": "^4",
+    "tsx": "^4.21.0",
+    "typescript": "^5"
+  }
+}
