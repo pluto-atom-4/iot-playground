@@ -1,0 +1,9 @@
+echo "📋 Running lint-staged..."
+pnpm exec lint-staged
+
+if [ $? -ne 0 ]; then
+  echo "❌ Linting failed - commit aborted"
+  exit 1
+fi
+
+echo "✅ All checks passed - ready to commit!"
