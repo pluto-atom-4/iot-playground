@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Machine {
+  id          String       @id @default(cuid())
+  name        String
+  description String?
+  location    String?
+  status      String       @default("active")
+  sensors     Sensor[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@map("machines")
+}
+
+model Sensor {
+  id            String         @id @default(cuid())
+  name          String
+  type          String
+  unit          String?
+  machine       Machine        @relation(fields: [machineId], references: [id], onDelete: Cascade)
+  machineId     String
+  telemetryLogs TelemetryLog[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@map("sensors")
+}
+
+model TelemetryLog {
+  id        String   @id @default(cuid())
+  value     Float
+  timestamp DateTime @default(now())
+  sensor    Sensor   @relation(fields: [sensorId], references: [id], onDelete: Cascade)
+  sensorId  String
+
+  @@index([sensorId, timestamp])
+  @@map("telemetry_logs")
+}
