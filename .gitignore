@@ -48,3 +48,4 @@ src/generated/
 # Playwright
 /playwright-report/
 /test-results/
+/.idea/
