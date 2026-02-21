@@ -33,6 +33,46 @@ cd iot-playground
 pnpm install
 ```
 
+> **Note:** After the install completes you may see the following warning about ignored build scripts:
+>
+> ```
+> ╭ Warning ───────────────────────────────────────────────────────────────────────────────────────────────╮
+> │                                                                                                        │
+> │   Ignored build scripts: @clerk/shared@3.46.0, @prisma/engines@7.4.1, esbuild@0.27.3, prisma@7.4.1,  │
+> │   sharp@0.34.5.                                                                                        │
+> │   Run "pnpm approve-builds" to pick which dependencies should be allowed to run scripts.               │
+> │                                                                                                        │
+> ╰────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+> ```
+>
+> Run the following command to approve package build scripts:
+>
+> ```bash
+> pnpm approve-builds
+> ```
+>
+> pnpm will show an interactive checklist. Press `a` to toggle all packages on, then press `Enter` to confirm:
+>
+> ```
+> ? Choose which packages to build
+>   (Press <space> to select, <a> to toggle all, <i> to invert selection, and <enter> to proceed)
+> ❯◉ @clerk/shared@3.46.0
+>  ◉ @prisma/engines@7.4.1
+>  ◉ esbuild@0.27.3
+>  ◉ prisma@7.4.1
+>  ◉ sharp@0.34.5
+> ```
+>
+> **Select all packages.** Here is why each one is required:
+>
+> | Package | Why it needs a build script |
+> |---|---|
+> | `@clerk/shared` | Compiles Clerk's shared authentication helpers used at runtime |
+> | `@prisma/engines` | Downloads and unpacks the native Prisma query-engine binary for your OS |
+> | `esbuild` | Installs the native esbuild binary used by Next.js / Turbopack for bundling |
+> | `prisma` | Runs `prisma generate` (via the `postinstall` script) to create the typed Prisma Client |
+> | `sharp` | Compiles the native image-processing addon used by Next.js for `<Image>` optimization |
+
 ### 2. Configure environment variables
 
 Copy the example below into a `.env.local` file and fill in your values:
@@ -104,6 +144,7 @@ iot-playground/
 | `pnpm lint:check` | Lint without writing changes |
 | `pnpm format` | Format all files with Biome |
 | `pnpm check:biome` | Run all Biome checks and auto-fix |
+| `pnpm approve-builds` | Allow dependency build scripts after `pnpm install` |
 | `pnpm e2e` | Run Playwright end-to-end tests |
 | `pnpm e2e:debug` | Run Playwright tests in debug mode |
 
